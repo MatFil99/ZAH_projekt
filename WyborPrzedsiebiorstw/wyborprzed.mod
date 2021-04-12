@@ -36,7 +36,4 @@ subject to{
   ogrBudzetu: 
       budzet>=sum(p in Przedsiebiorstwa)w[p]*koszt[p];
   
-  forall (p in Przedsiebiorstwa)
-  ogrBilans:
-      bilans[p]==zysk[p]-koszt[p];
 }
