@@ -10,29 +10,45 @@
 // --------------------------------------------------------------------------
 
 // zbiory
-{string} Przedsiebiorstwa =...;
+{string} PunktyOdbioru =...;
 
 // parametry
-float koszt[Przedsiebiorstwa] =...; // koszt umowy
-float zysk[Przedsiebiorstwa] =...; // szacunkowy zysk za klienta w przedsiebiorstwie
-int liczbaKlientow[Przedsiebiorstwa] =...; //
-int wspolniKlienci[Przedsiebiorstwa][Przedsiebiorstwa] =...; // macierz sasiedztwa
+float koszt[PunktyOdbioru] =...; // koszt umowy
+float przychod =...; // szacunkowy przychod za klienta (jednakowy dla punktow odbioru)
+int liczbaKlientow[PunktyOdbioru] =...; //
+int wspolniKlienci[PunktyOdbioru][PunktyOdbioru] =...; // macierz sasiedztwa (liczba wsp. klientow)
 float budzet = ...;
 
 // zmienne decyzyjne
-dvar boolean w[Przedsiebiorstwa]; // wybrane przedsiebiorstwa (0 - nie; 1 - tak)
+dvar boolean x[PunktyOdbioru]; // wybrane punkty odbioru (0 - nie; 1 - tak)
+dvar boolean w[PunktyOdbioru][PunktyOdbioru]; // czy punkty odbioru p1, p2 zostaly wybrane
 
 // funkcja celu
 maximize
-  sum( p in Przedsiebiorstwa )
-    (( zysk[p]*liczbaKlientow[p] - koszt[p] ) * w[p] )
-  - sum( p1 in Przedsiebiorstwa )
-  	   (sum( p2 in Przedsiebiorstwa )
-  	     (1/2*wspolniKlienci[p1][p2]*w[p1]*w[p2]*zysk[p1]));
+  sum( p in PunktyOdbioru )
+    (( przychod*liczbaKlientow[p] - koszt[p] ) * x[p] )
+  - sum( p1 in PunktyOdbioru, p2 in PunktyOdbioru )
+  	     (1/2*wspolniKlienci[p1][p2]*przychod*w[p1][p2]);
 
 // ograniczenia
 subject to{
-  ogrBudzetu: 
-      budzet>=sum(p in Przedsiebiorstwa)w[p]*koszt[p];
   
+  ogrBudzetu: 
+      budzet>=sum(p in PunktyOdbioru)x[p]*koszt[p];
+
+// 3 ograniczenia przypisujace zmiennej pomocniczej w wartosci iloczynu logicznego
+// w[p1][p2]=x[p1]*x[p2]
+  forall( p1 in PunktyOdbioru, p2 in PunktyOdbioru)
+  ogrWybraniSasiedziCz1:
+    x[p1]+x[p2]<=w[p1][p2]+1;
+    
+  forall( p1 in PunktyOdbioru, p2 in PunktyOdbioru)
+    ogrWybraniSasiedziCz2:
+	w[p1][p2]<=x[p1];
+  
+  forall( p1 in PunktyOdbioru, p2 in PunktyOdbioru)
+    ogrWybraniSasiedziCz3:
+	w[p1][p2]<=x[p2];	
+// 
+    
 }
