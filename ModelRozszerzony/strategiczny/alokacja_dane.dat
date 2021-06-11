@@ -1,0 +1,30 @@
+/*********************************************
+ * OPL 20.1.0.0 Data
+ * Author: walde
+ * Creation Date: 18 maj 2021 at 18:17:04
+ *********************************************/
+// --------------------------------------------------------------------------
+// Licensed Materials - Property of IBM
+//
+// 5725-A06 5725-A29 5724-Y48 5724-Y49 5724-Y54 5724-Y55
+// Copyright IBM Corporation 1998, 2020. All Rights Reserved.
+//
+// Note to U.S. Government Users Restricted Rights:
+// Use, duplication or disclosure restricted by GSA ADP Schedule
+// Contract with IBM Corp.
+// --------------------------------------------------------------------------
+
+
+SheetConnection sheet("dane_strategiczny.xlsx");
+
+Miasta from SheetRead(sheet,"Arkusz1!E3:H3");
+Miesiace from SheetRead(sheet,"Arkusz1!E2:P2");
+b0 from SheetRead(sheet,"Arkusz1!B2:B2");
+p from SheetRead(sheet,"Arkusz1!B3:B3");
+w from SheetRead(sheet,"Arkusz1!B20:M23");
+k from SheetRead(sheet,"Arkusz1!B8:M11");
+o from SheetRead(sheet,"Arkusz1!B14:M17");
+c from SheetRead(sheet, "Arkusz1!B5:B5");
+l from SheetRead(sheet, "Arkusz1!B26:M29");
+
+x to SheetWrite(sheet, "Arkusz1!B33:M36");

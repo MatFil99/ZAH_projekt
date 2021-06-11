@@ -1,0 +1,30 @@
+/*********************************************
+ * OPL 20.1.0.0 Data
+ * Author: student
+ * Creation Date: 10 gru 2021 at 11:50:38
+ *********************************************/
+
+ SheetConnection sheet("Dane_statyczne.xlsx");
+ 
+ P from SheetRead(sheet, "gru!A6:A29");
+ ParyP from SheetRead(sheet, "gru!F7:G24");
+ TrojkiP from SheetRead(sheet, "gru!K7:M13");
+ CzworkiP from SheetRead(sheet, "gru!Q7:T12");
+
+
+c from SheetRead(sheet, "gru!C6:C29");
+cp from SheetRead(sheet, "gru!H7:H24");
+ct from SheetRead(sheet, "gru!N7:N13");
+cc from SheetRead(sheet, "gru!U7:U12");
+
+
+k from SheetRead(sheet, "gru!B6:B29");
+w from SheetRead(sheet, "gru!B1:B1");
+b from SheetRead(sheet, "gru!B2:B2");
+
+
+// Write results
+x to SheetWrite(sheet, "gru!E6:E29");
+yp to SheetWrite(sheet, "gru!J7:J24");
+yt to SheetWrite(sheet, "gru!P7:P13");
+yc to SheetWrite(sheet, "gru!W7:W12");
